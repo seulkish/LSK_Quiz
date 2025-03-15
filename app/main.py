@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from app.api.api import api_router
-from app.core.config import settings
+from app.api import quiz, submission, user
+from app.config import settings
 
 app = FastAPI(
     title=settings.PROJECT_NAME,
@@ -22,7 +22,9 @@ app.add_middleware(
 )
 
 # API 라우터 등록
-app.include_router(api_router, prefix=settings.API_V1_STR)
+app.include_router(quiz.router, prefix=settings.API_PREFIX)
+app.include_router(submission.router, prefix=settings.API_PREFIX)
+app.include_router(user.router, prefix=settings.API_PREFIX)
 
 @app.get("/")
 async def root():

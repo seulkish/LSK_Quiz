@@ -14,7 +14,7 @@ class Settings:
     DATABASE_URL: str = os.getenv("DATABASE_URL", "postgresql://postgres:postgres@localhost:5432/lsk_quiz")
 
     # Security
-    SECRET_KEY: str = os.getenv("SECRET_KEY", "your_default_secret_key")
+    SECRET_KEY: str = os.getenv("SECRET_KEY", "default_secret_key")
 
     # API 설정
     API_PREFIX: str = "/api"
