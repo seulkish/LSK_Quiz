@@ -11,7 +11,7 @@ def test_submit_answer():
     """답안 제출 테스트"""
     # 로그인
     login_response = client.post(
-        f"{API_PREFIX}/login",
+        f"{API_PREFIX}/users/login",
         data={"username": "admin", "password": "admin1234"}
     )
     assert login_response.status_code == 200
@@ -83,7 +83,7 @@ def test_save_progress():
     """답안 중간 저장 테스트"""
     # 로그인
     login_response = client.post(
-        f"{API_PREFIX}/login",
+        f"{API_PREFIX}/users/login",
         data={"username": "admin", "password": "admin1234"}
     )
     token = login_response.json()["access_token"]
@@ -150,7 +150,7 @@ def test_view_submission_results():
     """제출 결과 조회 테스트"""
     # 로그인
     login_response = client.post(
-        f"{API_PREFIX}/login",
+        f"{API_PREFIX}/users/login",
         data={"username": "admin", "password": "admin1234"}
     )
     token = login_response.json()["access_token"]
