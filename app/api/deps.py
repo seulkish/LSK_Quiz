@@ -10,7 +10,7 @@ from app.models.user import User
 from app.config import settings
 
 # OAuth2 로그인을 위한 토큰 URL 설정
-oauth2_scheme = OAuth2PasswordBearer(tokenUrl="api/login")
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl="api/users/login")
 
 # 현재 사용자 가져오기
 def get_current_user(
