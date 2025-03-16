@@ -7,7 +7,7 @@ app = FastAPI(
     title=settings.PROJECT_NAME,
     description="퀴즈 응시 시스템 API",
     version="1.0.0",
-    openapi_url=f"{settings.API_V1_STR}/openapi.json",
+    openapi_url=f"{settings.API_PREFIX}/openapi.json",
     docs_url="/docs",
     redoc_url="/redoc",
 )
