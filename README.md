@@ -1,6 +1,104 @@
 # LSK Quiz - 퀴즈 응시 시스템 API 프로젝트
 FastAPI와 PostgreSQL을 사용하여 구현한 퀴즈 응시 시스템 API 과제입니다.
 
+## 실행 방법
+
+### 필수 사항
+- Python 3.11 이상
+- PostgreSQL 서버
+- Redis 서버 (캐싱 기능 사용 시)
+
+### 설치 및 환경 설정
+
+1. 저장소 클론
+```bash
+git clone https://github.com/seulkish/LSK_Quiz.git
+cd LSK_Quiz
+```
+
+2. 의존성 설치
+```bash
+# Poetry 설치
+pip install poetry
+
+# 프로젝트 의존성 설치
+# (pyproject.toml 파일에 정의된 모든 의존성을 한 번에 설치합니다)
+poetry install
+```
+
+** 참고: 현 프로젝트에 새 패키지를 추가하려면 아래 명령어를 사용합니다
+```bash
+poetry add [패키지명]
+```
+
+3. 보안 키 생성
+```bash
+python generate_key.py
+```
+위 명령어를 실행하면 시크릿 키가 생성됩니다. 이 값을 다음 단계에서 사용하세요.
+
+4. 환경변수 설정
+   `.env` 파일을 프로젝트 루트 디렉토리에 생성하고 아래 내용을 입력하세요.
+   PostgreSQL 접속 정보와 위에서 생성한 시크릿 키를 환경에 맞게 수정하세요.
+```
+# 데이터베이스 연결 정보
+DATABASE_URL=postgresql://사용자명:비밀번호@localhost:5432/lsk_quiz
+
+# 보안 설정 - generate_key.py 실행하여 얻은 값을 넣으세요
+SECRET_KEY=실행결과값을여기에붙여넣기
+
+# 기타 환경 설정
+DEBUG=True
+ALLOWED_HOSTS=localhost,127.0.0.1
+```
+
+5. 데이터베이스 생성
+   PostgreSQL에서 먼저 데이터베이스를 생성해야 합니다.
+```sql
+CREATE DATABASE lsk_quiz;
+```
+또는 PostgreSQL GUI 도구를 사용하여 데이터베이스를 생성할 수도 있습니다.
+
+6. 데이터베이스 초기화 및 테스트 데이터 생성
+```bash
+python setup_db.py
+```
+
+7. 마이그레이션 실행
+```bash
+alembic upgrade head
+```
+
+### 서버 실행
+
+```bash
+# Poetry를 사용하는 경우
+poetry run uvicorn app.main:app --reload
+
+# 또는 직접 실행하는 경우
+uvicorn app.main:app --reload
+```
+
+서버가 실행되면 다음 URL로 접속할 수 있습니다:
+- API 서버: http://localhost:8000
+- API 문서: http://localhost:8000/docs
+
+### 테스트 계정
+
+초기 설정 후 생성되는 테스트 계정:
+- 관리자: username=`admin`, password=`admin1234`
+- 일반사용자: username=`user`, password=`user1234`
+
+### 테스트 실행
+
+```bash
+# Poetry를 사용하는 경우
+poetry run pytest tests/
+
+# 또는 직접 실행하는 경우
+pytest tests/
+```
+
 ## 구현된 API 엔드포인트
 
 ### 1. 퀴즈 생성/수정/삭제 API (관리자용)

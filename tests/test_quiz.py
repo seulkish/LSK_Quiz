@@ -1,14 +1,17 @@
 # tests/test_quiz.py
 from fastapi.testclient import TestClient
 from app.main import app
+from app.config import settings
 
+# API 접두사 가져오기
+API_PREFIX = settings.API_PREFIX
 client = TestClient(app)
 
 def test_create_and_get_quiz():
     """퀴즈 생성 및 조회 테스트"""
     # 로그인
     login_response = client.post(
-        "/api/login",
+        f"{API_PREFIX}/users/login",
         data={"username": "admin", "password": "admin1234"}
     )
     assert login_response.status_code == 200
@@ -47,7 +50,7 @@ def test_add_question():
     """퀴즈에 문제 추가 테스트"""
     # 로그인
     login_response = client.post(
-        "/api/login",
+        f"{API_PREFIX}/users/login",
         data={"username": "admin", "password": "admin1234"}
     )
     token = login_response.json()["access_token"]
@@ -66,7 +69,7 @@ def test_add_question():
         json=quiz_data
     )
 
-    quiz_id = quiz_response.json()["id"]
+    quiz_id = response.json()["id"]
 
     # 문제 추가
     question_data = {
@@ -88,7 +91,7 @@ def test_list_quizzes():
     """퀴즈 목록 조회 테스트"""
     # 로그인
     login_response = client.post(
-        "/api/login",
+        f"{API_PREFIX}/users/login",
         data={"username": "user", "password": "user1234"}
     )
     token = login_response.json()["access_token"]

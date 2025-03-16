@@ -29,6 +29,16 @@ dependencies = [
 [tool.poetry]
 package-mode = false
 
+[tool.poetry.group.dev.dependencies]
+pytest-dotenv = "^0.5.2"
+
 [build-system]
 requires = ["poetry-core>=2.0.0,<3.0.0"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.pytest.ini_options]
+env = [
+    "DATABASE_URL=postgresql://postgres:rlgns88@localhost:5432/lsk_quiz",
+    "SECRET_KEY=caed8a95b304e4afe223de3e50806122bb8e59ebb3af1f27118bd5266125f7c0",
+    "DEBUG=True"
+]
