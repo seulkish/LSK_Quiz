@@ -142,6 +142,20 @@ def create_question(
             detail="퀴즈를 찾을 수 없습니다"
         )
 
+        # 선택지 검증 - 최소 2개 이상
+    if len(question_in.options) < 2:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="선택지는 최소 2개 이상이어야 합니다"
+        )
+
+    # 정답 인덱스 검증
+    if question_in.correct_answer >= len(question_in.options):
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="정답 인덱스가 유효하지 않습니다"
+        )
+
     # 새 문제 생성
     question = Question(
         quiz_id=quiz_id,

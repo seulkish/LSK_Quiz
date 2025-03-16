@@ -10,10 +10,8 @@ class QuestionBase(BaseModel):
     correct_answer: int
     order: Optional[int] = None
 
-
 class QuestionCreate(QuestionBase):
     pass
-
 
 class QuestionUpdate(BaseModel):
     content: Optional[str] = None
