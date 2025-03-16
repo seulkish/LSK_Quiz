@@ -22,9 +22,9 @@ app.add_middleware(
 )
 
 # API 라우터 등록
-app.include_router(quiz.router, prefix=settings.API_PREFIX)
-app.include_router(submission.router, prefix=settings.API_PREFIX)
-app.include_router(user.router, prefix=settings.API_PREFIX)
+app.include_router(quiz.router, prefix=f"{settings.API_PREFIX}/quizzes", tags=["quizzes"])
+app.include_router(submission.router, prefix=f"{settings.API_PREFIX}/submissions", tags=["submissions"])
+app.include_router(user.router, prefix=f"{settings.API_PREFIX}/users", tags=["users"])
 
 @app.get("/")
 async def root():
